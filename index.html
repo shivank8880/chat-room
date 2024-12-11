@@ -1,0 +1,165 @@
+<html>
+<head>
+    <title>Group Chat App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #007bff;
+            color: white;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 80vh;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: white;
+        }
+        .chat-header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+        }
+        .chat-message {
+            margin-bottom: 10px;
+        }
+        .chat-message .username {
+            font-weight: bold;
+        }
+        .chat-message .message {
+            margin-left: 10px;
+        }
+        .chat-input {
+            display: flex;
+            border-top: 1px solid #ccc;
+        }
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 0;
+        }
+        .chat-input button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .chat-input button:hover {
+            background-color: #0056b3;
+        }
+        .code-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .code-container input {
+            flex: 1;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .code-container button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .code-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Group Chat App</h1>
+        </div>
+        <div class="code-container">
+            <input type="text" id="chatCode" placeholder="Enter chat code">
+            <button onclick="joinChat()">Join Chat</button>
+            <button onclick="createChat()">Create Chat</button>
+        </div>
+        <div class="chat-container" id="chatContainer" style="display: none;">
+            <div class="chat-header">
+                <h2>Chat Room</h2>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <!-- Chat messages will appear here -->
+            </div>
+            <div class="chat-input">
+                <input type="text" id="messageInput" placeholder="Type a message">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function joinChat() {
+            const chatCode = document.getElementById('chatCode').value;
+            if (chatCode) {
+                document.getElementById('chatContainer').style.display = 'flex';
+                // Logic to join the chat room using the chat code
+            } else {
+                alert('Please enter a chat code.');
+            }
+        }
+
+        function createChat() {
+            const chatCode = prompt('Enter a new chat code:');
+            if (chatCode) {
+                document.getElementById('chatCode').value = chatCode;
+                document.getElementById('chatContainer').style.display = 'flex';
+                // Logic to create a new chat room with the chat code
+            } else {
+                alert('Please enter a valid chat code.');
+            }
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value;
+            if (message) {
+                const chatMessages = document.getElementById('chatMessages');
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('chat-message');
+                messageElement.innerHTML = `<span class="username">You:</span> <span class="message">${message}</span>`;
+                chatMessages.appendChild(messageElement);
+                messageInput.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                // Logic to send the message to the chat room
+            } else {
+                alert('Please enter a message.');
+            }
+        }
+    </script>
+</body>
+</html>
